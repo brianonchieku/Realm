@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.realm.models.Address
 import com.example.realm.models.Course
+import com.example.realm.models.Student
 import com.example.realm.models.Teacher
 import io.realm.kotlin.ext.realmListOf
 import kotlinx.coroutines.launch
@@ -57,6 +58,17 @@ class MainViewModel: ViewModel() {
 
                 address1.teacher = teacher1
                 address2.teacher = teacher2
+
+                val student1 = Student().apply {
+                    name = "Debra Gesare"
+                }
+                val student2 = Student().apply {
+                    name = "Ellen Atieno"
+                }
+
+                course1.enrolledStudents.add(student1)
+                course2.enrolledStudents.add(student2)
+                course3.enrolledStudents.addAll(listOf(student1,student2))
 
             }
         }
