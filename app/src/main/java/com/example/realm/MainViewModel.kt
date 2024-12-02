@@ -6,6 +6,7 @@ import com.example.realm.models.Address
 import com.example.realm.models.Course
 import com.example.realm.models.Student
 import com.example.realm.models.Teacher
+import io.realm.kotlin.UpdatePolicy
 import io.realm.kotlin.ext.realmListOf
 import kotlinx.coroutines.launch
 
@@ -69,6 +70,16 @@ class MainViewModel: ViewModel() {
                 course1.enrolledStudents.add(student1)
                 course2.enrolledStudents.add(student2)
                 course3.enrolledStudents.addAll(listOf(student1,student2))
+
+                copyToRealm(teacher1, updatePolicy = UpdatePolicy.ALL)
+                copyToRealm(teacher2, updatePolicy = UpdatePolicy.ALL)
+
+                copyToRealm(course1, updatePolicy = UpdatePolicy.ALL)
+                copyToRealm(course2, updatePolicy = UpdatePolicy.ALL)
+                copyToRealm(course3, updatePolicy = UpdatePolicy.ALL)
+
+                copyToRealm(student1, updatePolicy = UpdatePolicy.ALL)
+                copyToRealm(student2, updatePolicy = UpdatePolicy.ALL)
 
             }
         }
