@@ -3,6 +3,9 @@ package com.example.realm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.realm.models.Address
+import com.example.realm.models.Course
+import com.example.realm.models.Teacher
+import io.realm.kotlin.ext.realmListOf
 import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
@@ -28,6 +31,33 @@ class MainViewModel: ViewModel() {
                     city = "shacty"
 
                 }
+
+                val course1 = Course().apply {
+                    name = "Distributed Systems"
+                }
+                val course2 = Course().apply {
+                    name = "Machine Learning"
+                }
+                val course3 = Course().apply {
+                    name = "Artificial Intelligence"
+                }
+
+                val teacher1 = Teacher().apply {
+                    address = address1
+                    courses = realmListOf(course1, course2)
+                }
+                val teacher2 = Teacher().apply {
+                    address = address2
+                    courses = realmListOf(course3)
+                }
+
+                course1.teacher = teacher1
+                course2.teacher = teacher1
+                course3.teacher = teacher2
+
+                address1.teacher = teacher1
+                address2.teacher = teacher2
+
             }
         }
     }
