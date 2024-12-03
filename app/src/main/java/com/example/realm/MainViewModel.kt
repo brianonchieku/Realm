@@ -10,6 +10,7 @@ import com.example.realm.models.Course
 import com.example.realm.models.Student
 import com.example.realm.models.Teacher
 import io.realm.kotlin.UpdatePolicy
+import io.realm.kotlin.delete
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.realmListOf
 import kotlinx.coroutines.flow.SharingStarted
@@ -115,6 +116,18 @@ class MainViewModel: ViewModel() {
                 copyToRealm(student1, updatePolicy = UpdatePolicy.ALL)
                 copyToRealm(student2, updatePolicy = UpdatePolicy.ALL)
 
+            }
+        }
+    }
+
+    fun deleteCourse() {
+        viewModelScope.launch {
+            realm.write {
+                val course = courseDetails?: return@write
+                val latestCourse = findLatest(course) ?: return@write
+                delete(latestCourse)
+
+                courseDetails = null
             }
         }
     }
