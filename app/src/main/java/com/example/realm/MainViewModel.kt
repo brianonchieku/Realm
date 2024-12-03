@@ -1,5 +1,8 @@
 package com.example.realm
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.realm.models.Address
@@ -30,7 +33,22 @@ class MainViewModel: ViewModel() {
             emptyList()
         )
 
-    fun createSampleEntries(){
+    var courseDetails: Course? by mutableStateOf(null)
+        private set
+
+    init {
+        createSampleEntries()
+    }
+
+    fun showCourseDetails(course: Course){
+        courseDetails = course
+    }
+
+    fun hideCourseDetails(){
+        courseDetails = null
+    }
+
+    private fun createSampleEntries(){
         viewModelScope.launch {
             realm.write {
                 val address1 = Address().apply {
